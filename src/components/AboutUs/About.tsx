@@ -1,4 +1,3 @@
-import React from 'react'
 import {Link} from 'react-router-dom'
 import { Container, Row, Col, Carousel } from 'react-bootstrap'
 import p4 from '../../images/p4.jpg';
