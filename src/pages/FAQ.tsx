@@ -1,4 +1,4 @@
-function FAQ() {
+function FAQ():JSX.Element {
     return (
         <>
             <div className="breadcrumbs">

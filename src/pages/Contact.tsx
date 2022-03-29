@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 import ContactForm from '../components/ContactForm/ContactForm'
 
-function Contact() {
+function Contact():JSX.Element {
   return (
     <>
       <div className="breadcrumbs">

@@ -1,10 +1,10 @@
 import React from 'react'
+import { Container, Image, Row, Col } from 'react-bootstrap';
 
 import image1 from '../../images/p2.jpg'
 import image2 from '../../images/p3.jpg'
 import image3 from '../../images/p4.jpg'
 import image4 from '../../images/111.jpg'
-import { Container, Image, Row, Col } from 'react-bootstrap';
 
 function Banner():JSX.Element {
     return (

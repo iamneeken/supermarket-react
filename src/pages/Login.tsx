@@ -1,7 +1,7 @@
 
 import LoginForm from '../components/LoginForm/LoginForm'
 
-function Login() {
+function Login():JSX.Element {
     return (
         <>
             <div className="breadcrumbs">
