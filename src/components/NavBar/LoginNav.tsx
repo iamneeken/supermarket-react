@@ -1,0 +1,53 @@
+import React from "react";
+
+import { Container, Form, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+
+const LoginNav:React.FC =() =>{
+  return (
+    <div className="agileits_header">
+      <div className="container">
+        <div className="w3l_offers">
+          <p>
+            SALE UP TO 70% OFF. USE CODE "SALE70%" .{" "}
+            <Link to='/products'>SHOP NOW</Link>
+          </p>
+        </div>
+        <div className="agile-login">
+          <ul>
+            <li>
+              <Link to="/createAccount"> Create Account </Link>
+            </li>
+            <li>
+              <Link to='/login'>Login</Link>
+            </li>
+            <li>
+              <Link to='/contact'>Help</Link>
+            </li>
+          </ul>
+        </div>
+        <div className="product_list_header">
+          <form action="#" method="post" className="last">
+            <input type="hidden" name="cmd" value="_cart" />
+            <input type="hidden" name="display" value="1" />
+            <Button className="w3view-cart" type="submit" name="submit" value="">
+              <FontAwesomeIcon
+                icon={faCartArrowDown}
+                size="lg"
+                aria-hidden="true"
+                color="white"
+                className="cartArrowDown"
+              ></FontAwesomeIcon>
+            </Button>
+          </form>
+        </div>
+        <div className="clearfix"> </div>
+      </div>
+    </div>
+
+  );
+}
+
+export default LoginNav;
