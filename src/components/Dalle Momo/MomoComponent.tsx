@@ -1,20 +1,13 @@
-import BreadcrumbComponent from "../Breadcrumbs/BreadcrumbComponent";
-import {
-  Container,
-  Col,
-  Row,
-  Pagination as BPagination,
-} from "react-bootstrap";
+import React from "react";
+import { Row, Col, Container } from "react-bootstrap";
+import RightFilterProduct from "../ProductComponent/RightFilterProduct";
 
-import LeftCategoryMenu from "./LeftCategoryMenu";
-import Filter from "./Filter";
-import RightProduct from "./RightProduct";
+import Filter from "../Products/Filter";
+import LeftCategoryMenu from "../Products/LeftCategoryMenu";
 
-function Product(): JSX.Element {
+function MomoComponent() {
   return (
     <>
-      <BreadcrumbComponent page="All Products" />
-
       <div className="products">
         <Container>
           <Row>
@@ -28,7 +21,7 @@ function Product(): JSX.Element {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightProduct />
+              <RightFilterProduct category="DALLE MOMOS" />
               <div className="clearfix"> </div>
             </Col>
             <div className="clearfix"> </div>
@@ -40,4 +33,4 @@ function Product(): JSX.Element {
   );
 }
 
-export default Product;
+export default MomoComponent;

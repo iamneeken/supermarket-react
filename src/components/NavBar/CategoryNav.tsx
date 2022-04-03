@@ -4,14 +4,7 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import axios from "axios";
 import { response } from "express";
 import { Root as CategoriesInterface } from "../Products/CategoriesInterface";
-
-// type category = {
-//   id: number;
-//   title: string;
-//   header: string;
-//   subcategories: any[];
-//   data:
-// };
+import "./CategoryNav.css";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
@@ -19,7 +12,6 @@ const warehouseId = 1;
 
 function CategoryNav(): JSX.Element {
   const [categories, setCategories] = useState<CategoriesInterface>();
-  console.log(categories);
   useEffect(() => {
     const getCategory = async () => {
       try {
@@ -37,24 +29,6 @@ function CategoryNav(): JSX.Element {
     };
     getCategory();
   }, []);
-
-  //   useEffect(() => {
-  //     setCategories([
-  //       {
-  //         id: 1,
-  //         title: "GROCERIES",
-  //         header: "All Groceries",
-  //         subcategories: [
-  //           "Dals & Pulses",
-  //           "Almonds",
-  //           "Cashews",
-  //           "Dry Fruit",
-  //           "Mukhwas",
-  //           "Rice & Rice Products",
-  //         ],
-  //       },
-  //     ]);
-  //   }, []);
 
   return (
     <div className="navigation-agileits">
@@ -78,7 +52,9 @@ function CategoryNav(): JSX.Element {
                   return category.subcategories ? (
                     <NavDropdown title={category.title}>
                       <ul className="multi-column-dropdown">
-                        <h6>{category.title}</h6>
+                        <Link to={`products/${category.slug}`}>
+                          {category.title}
+                        </Link>
                         {category.subcategories.data.map((sub) => (
                           <NavDropdown.Item>{sub.title}</NavDropdown.Item>
                         ))}

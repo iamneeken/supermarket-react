@@ -1,20 +1,12 @@
-import BreadcrumbComponent from "../Breadcrumbs/BreadcrumbComponent";
-import {
-  Container,
-  Col,
-  Row,
-  Pagination as BPagination,
-} from "react-bootstrap";
+import React from "react";
+import { Row, Col, Container } from "react-bootstrap";
+import RightFilterProduct from "../ProductComponent/RightFilterProduct";
+import Filter from "../Products/Filter";
+import LeftCategoryMenu from "../Products/LeftCategoryMenu";
 
-import LeftCategoryMenu from "./LeftCategoryMenu";
-import Filter from "./Filter";
-import RightProduct from "./RightProduct";
-
-function Product(): JSX.Element {
+function SignatureComponent() {
   return (
     <>
-      <BreadcrumbComponent page="All Products" />
-
       <div className="products">
         <Container>
           <Row>
@@ -28,7 +20,7 @@ function Product(): JSX.Element {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightProduct />
+              <RightFilterProduct category="SIGNATURES" />
               <div className="clearfix"> </div>
             </Col>
             <div className="clearfix"> </div>
@@ -40,4 +32,4 @@ function Product(): JSX.Element {
   );
 }
 
-export default Product;
+export default SignatureComponent;
