@@ -2,44 +2,49 @@ import { useState, useEffect } from "react";
 import ProductCard from "../Products/ProductCard";
 import { Row } from "react-bootstrap";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
+import { Root as DisplayProductInterface } from "../Products/DisplayProductInterface";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
 const warehouseId = 1;
 
 type Props = {
-  category: string;
+  category: number;
 };
 
 function RightFilterProduct(props: Props) {
   const [products, setProducts] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
   console.log(products);
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        let items: any = [];
-        const config = {
-          headers: { "Api-Key": apiKey, "Warehouse-Id": warehouseId },
-        };
-
-        let response = await axios.get(`${baseURL}/api/v4/product`, config);
-
-        if (response.status == 200) {
-          response.data.data.forEach((item: { categoryTitle: string }) => {
-            if (item.categoryTitle === props.category) {
-              items.push(item);
-            }
-          });
-          setProducts(items);
-        }
-      } catch (e) {
-        console.log("Something went wrong!: ", e);
-      }
-    };
     getProducts();
-  }, []);
+  }, [pageNumber]);
 
+  const getProducts = async () => {
+    try {
+      let items: any = [];
+      const config = {
+        headers: { "Api-Key": apiKey, "Warehouse-Id": warehouseId },
+      };
+
+      let res = await axios.get(`${baseURL}/api/v4/product`, config);
+
+      if (res.status == 200) {
+        res.data.data.forEach((item: { categoryId: number }) => {
+          if (item.categoryId === props.category) {
+            items.push(item);
+          }
+        });
+        setProducts(items);
+      }
+    } catch (e) {
+      console.log("Something went wrong!: ", e);
+    }
+  };
+
+  const handlePageClick = () => {};
   return (
     <Row>
       {products &&
@@ -52,7 +57,26 @@ function RightFilterProduct(props: Props) {
             markedPrice={product.unitPrice[0].markedPrice}
           />
         ))}
-      {/* {products && <Pagination data={products} />} */}
+      {/* {products && (
+        <ReactPaginate
+          previousLabel={"<<"}
+          pageCount={products.meta.pagination.total_pages}
+          breakLabel={"..."}
+          marginPagesDisplayed={4}
+          nextLabel={">>"}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      )} */}
     </Row>
   );
 }

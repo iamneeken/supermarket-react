@@ -13,7 +13,7 @@ const warehouseId = 1;
 
 function Slider(): JSX.Element {
   const [headline, setHeadline] = useState();
-  console.log(headline);
+  // console.log(headline);
   useEffect(() => {
     const getData = async () => {
       try {

@@ -1,8 +1,37 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faPhone } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const MainNav:React.FC =() => {
+const baseURL = "https://uat.ordering-dalle.ekbana.net/";
+const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
+const warehouseId = 1;
+
+const MainNav: React.FC = () => {
+  const [siteData, setSiteData] = useState();
+
+  console.log(siteData);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const config = {
+          headers: { "Api-Key": apiKey, "Warehouse-Id": warehouseId },
+        };
+
+        let response2 = await axios.get(`${baseURL}/api/v4/config`, config);
+
+        if (response2.status == 200) {
+          setSiteData(response2.data.meta.socialTags["og:title"]);
+        }
+      } catch (e) {
+        console.log("Something went wrong!: ", e);
+      }
+    };
+    getData();
+  }, []);
+
   return (
     <div className="logo_products">
       <div className="container">
@@ -19,7 +48,7 @@ const MainNav:React.FC =() => {
         </div>
         <div className="w3ls_logo_products_left">
           <h1>
-            <Link to='/'>super Market</Link>
+            <Link to="/">{siteData}</Link>
           </h1>
         </div>
         <div className="w3l_search">
@@ -47,6 +76,6 @@ const MainNav:React.FC =() => {
       </div>
     </div>
   );
-}
+};
 
 export default MainNav;

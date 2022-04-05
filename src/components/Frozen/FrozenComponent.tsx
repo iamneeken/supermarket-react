@@ -19,7 +19,7 @@ function FrozenComponent() {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightFilterProduct category="FROZEN ITEMS" />
+              <RightFilterProduct category={11} />
               <div className="clearfix"> </div>
             </Col>
             <div className="clearfix"> </div>

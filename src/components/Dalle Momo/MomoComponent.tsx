@@ -21,7 +21,7 @@ function MomoComponent() {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightFilterProduct category="DALLE MOMOS" />
+              <RightFilterProduct category={2} />
               <div className="clearfix"> </div>
             </Col>
             <div className="clearfix"> </div>

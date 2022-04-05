@@ -20,7 +20,7 @@ function Signature() {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightFilerProduct category="SIGNATURE" />
+              <RightFilerProduct category={134} />
 
               <div className="clearfix"> </div>
             </Col>

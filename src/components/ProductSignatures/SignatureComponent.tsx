@@ -20,7 +20,7 @@ function SignatureComponent() {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightFilterProduct category="SIGNATURES" />
+              <RightFilterProduct category={6} />
               <div className="clearfix"> </div>
             </Col>
             <div className="clearfix"> </div>

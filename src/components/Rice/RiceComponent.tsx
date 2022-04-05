@@ -19,7 +19,7 @@ function RiceComponent() {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightFilterProduct category="RICE AND NOODLES" />
+              <RightFilterProduct category={3} />
 
               <div className="clearfix"> </div>
             </Col>

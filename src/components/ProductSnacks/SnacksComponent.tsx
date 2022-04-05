@@ -21,7 +21,7 @@ function SnacksComponent() {
                   <div className="clearfix"> </div>
                 </div>
               </div>
-              <RightFilterProduct category="SNACKS" />
+              <RightFilterProduct category={4} />
               <div className="clearfix"> </div>
             </Col>
             <div className="clearfix"> </div>

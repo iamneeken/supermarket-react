@@ -12,11 +12,7 @@ function Pagination({ data }: Props): JSX.Element {
     const setPagination = () => {
       let active = data.meta.pagination.current_page;
       let items: any = [];
-      for (
-        let number = 1;
-        number <= data.meta.pagination.total_pages;
-        number++
-      ) {
+      for (let number = 1; number <= 5; number++) {
         items.push(
           <BPagination.Item key={number} active={number === active}>
             {number}
