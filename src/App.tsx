@@ -19,8 +19,10 @@ import Momo from "./pages/Momo";
 import RiceAndNoodles from "./pages/RiceAndNoodles";
 import FrozenItem from "./pages/FrozenItem";
 import Signature from "./pages/Signature";
+import { Search } from "./pages/Search";
 import Logout from "./pages/Logout";
 import { AuthProvider } from "./context/authService";
+import { ForgotPassword } from "./pages/ForgotPassword";
 
 const App = (): JSX.Element => {
   return (
@@ -36,6 +38,7 @@ const App = (): JSX.Element => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/products" element={<Products />} />
             <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/search/:key" element={<Search />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/products/snacks" element={<Snacks />} />
             <Route path="/products/signatures" element={<Signatures />} />
@@ -43,6 +46,7 @@ const App = (): JSX.Element => {
             <Route path="/products/momo-T1324I" element={<Momo />} />
             <Route path="/products/frozen-items" element={<FrozenItem />} />
             <Route path="/products/signature" element={<Signature />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route
               path="/products/rice-and-noodles"
               element={<RiceAndNoodles />}

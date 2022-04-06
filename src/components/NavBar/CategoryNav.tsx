@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import axios from "axios";
-import { response } from "express";
+
 import { Root as CategoriesInterface } from "../Products/CategoriesInterface";
 import "./CategoryNav.css";
 
@@ -40,10 +40,10 @@ function CategoryNav(): JSX.Element {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="nav">
-              <Link className="nav-link" to="/">
+              <Link className="nav-link" to="/" key="home">
                 HOME
               </Link>
-              <Link className="nav-link" to="/products">
+              <Link className="nav-link" to="/products" key="all products">
                 ALL PRODUCTS
               </Link>
 
@@ -52,7 +52,10 @@ function CategoryNav(): JSX.Element {
                   return category.subcategories ? (
                     <NavDropdown title={category.title}>
                       <ul className="multi-column-dropdown">
-                        <Link to={`products/${category.slug}`}>
+                        <Link
+                          to={`products/${category.slug}`}
+                          key={category.id}
+                        >
                           {category.title}
                         </Link>
                         {category.subcategories.data.map((sub) => (

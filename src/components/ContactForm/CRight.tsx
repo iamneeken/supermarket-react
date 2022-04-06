@@ -20,7 +20,7 @@ const ContactRight = () => {
           />
           <Form.Label
             className="input__label input__label--ichiro"
-            for="input-25"
+            htmlFor="input-25"
           >
             <span className="input__label-content input__label-content--ichiro">
               Your Name
@@ -38,7 +38,7 @@ const ContactRight = () => {
           />
           <Form.Label
             className="input__label input__label--ichiro"
-            for="input-26"
+            htmlFor="input-26"
           >
             <span className="input__label-content input__label-content--ichiro">
               Your Email

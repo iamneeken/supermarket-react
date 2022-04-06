@@ -1,65 +1,53 @@
-import { Row, Col, Container } from "react-bootstrap";
-import Filter from "../Products/Filter";
-import LeftCategoryMenu from "../Products/LeftCategoryMenu";
-import RightFilterProduct from "../ProductComponent/RightFilterProduct";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import ProductCard from "../Products/ProductCard";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Breadcrumb } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import Filter from "../components/Products/Filter";
+import LeftCategoryMenu from "../components/Products/LeftCategoryMenu";
+import ProductCard from "../components/Products/ProductCard";
+import { Root as DisplayProductInterface } from "../components/Products/DisplayProductInterface";
 import ReactPaginate from "react-paginate";
-
-import { Root as DisplayProductInterface } from "../Products/DisplayProductInterface";
+import BreadcrumbComponent from "../components/Breadcrumbs/BreadcrumbComponent";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
 const warehouseId = 1;
-let totalPage: number;
 
-function MomoComponent() {
-  let items: any = [];
-  const [momos, setMomos] = useState([]);
+export const Search = () => {
+  const { key } = useParams();
+  if (key) {
+    var query = key.toString();
+    console.log(query);
+  }
 
-  const [momoId, setMomoId] = useState(133);
-
-  const [pageNumber, setPageNumber] = useState(1);
+  const [product, setProduct] = useState<DisplayProductInterface>();
+  console.log(product);
 
   useEffect(() => {
-    getMomos();
-  }, [pageNumber]);
+    async function getProducts() {
+      const config = {
+        headers: { "Api-Key": apiKey, "Warehouse-Id": warehouseId },
+      };
+      let res = await axios.get(
+        `${baseURL}/api/v4/product?query=${query}`,
+        config
+      );
 
-  const getMomos = async () => {
-    const config = {
-      headers: {
-        "Api-Key": apiKey,
-        "Warehouse-Id": warehouseId,
-        perPage: 9,
-      },
-    };
-    // let res = await axios.get(`${baseURL}/api/v4/product`, config);
-    let res = await axios.get(
-      `${baseURL}/api/v4/product?categoryId=${momoId}&page=${pageNumber}`,
-      config
-    );
-
-    if (res.status == 200) {
-      // setProducts(res2.data);
-
-      res.data.data.forEach((item: { categoryTitle: string }) => {
-        if (item.categoryTitle === "MOMO") {
-          items.push(item);
-        }
-      });
-      totalPage = res.data.meta.pagination.total_pages;
-      setMomos(items);
+      if (res.status == 200) {
+        console.log(res.data);
+        setProduct(res.data);
+      }
     }
-  };
+    getProducts();
+  }, [key]);
 
-  const handlePageClick = (data: any = 1) => {
-    let currentPage = data.selected + 1;
-    setPageNumber(currentPage);
-  };
-
+  // const handlePageClick = (data: any = 1) => {
+  //   let currentPage = data.selected + 1;
+  //   setPageNumber(currentPage);
+  // };
   return (
     <>
+      <BreadcrumbComponent page="Search" />
       <div className="products">
         <Container>
           <Row>
@@ -74,9 +62,10 @@ function MomoComponent() {
                 </div>
               </div>
               <Row>
-                {momos &&
-                  momos.map((product: any) => (
+                {product &&
+                  product.data.map((product) => (
                     <ProductCard
+                      key={product.id}
                       offer={product.unitPrice[0].hasOffer}
                       image={product.images[0].imageName}
                       title={product.title}
@@ -85,10 +74,10 @@ function MomoComponent() {
                     />
                   ))}
 
-                {momos && (
+                {/* {product && (
                   <ReactPaginate
                     previousLabel={"<<"}
-                    pageCount={totalPage}
+                    pageCount={product.meta.pagination.total_pages}
                     breakLabel={"..."}
                     marginPagesDisplayed={4}
                     nextLabel={">>"}
@@ -104,9 +93,8 @@ function MomoComponent() {
                     breakLinkClassName={"page-link"}
                     activeClassName={"active"}
                   />
-                )}
+                )} */}
               </Row>
-              {/* <RightFilterProduct category={133} /> */}
               <div className="clearfix"> </div>
             </Col>
             <div className="clearfix"> </div>
@@ -116,6 +104,4 @@ function MomoComponent() {
       </div>
     </>
   );
-}
-
-export default MomoComponent;
+};

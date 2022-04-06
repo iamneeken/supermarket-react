@@ -8,7 +8,7 @@ import BrandStore from "../components/BrandStore/BrandStore";
 import NewOffer from "../components/NewOffer/NewOffer";
 import TopOfferCopy from "../components/TopOffers/TopOfferCopy";
 
-function Home():JSX.Element {
+function Home(): JSX.Element {
   return (
     <>
       <MainSlider />
@@ -17,7 +17,6 @@ function Home():JSX.Element {
       <Banner />
       <BrandStore />
       <NewOffer />
-
     </>
   );
 }

@@ -3,15 +3,18 @@ import { faSearch, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Search } from "../../pages/Search";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
 const warehouseId = 1;
 
 const MainNav: React.FC = () => {
-  const [siteData, setSiteData] = useState();
+  const [siteData, setSiteData] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(siteData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -21,7 +24,6 @@ const MainNav: React.FC = () => {
         };
 
         let response2 = await axios.get(`${baseURL}/api/v4/config`, config);
-
         if (response2.status == 200) {
           setSiteData(response2.data.meta.socialTags["og:title"]);
         }
@@ -29,8 +31,23 @@ const MainNav: React.FC = () => {
         console.log("Something went wrong!: ", e);
       }
     };
+
     getData();
-  }, []);
+  }, [siteData]);
+
+  const updateState = (value: any, setState: Function) => {
+    setState(value);
+  };
+
+  const submitHandler = async (e: any) => {
+    e.preventDefault();
+    try {
+      console.log(searchTerm);
+      // navigate(`/search?q=${searchTerm}`);
+    } catch (error) {
+      console.log("Something went wrong!", error);
+    }
+  };
 
   return (
     <div className="logo_products">
@@ -52,23 +69,29 @@ const MainNav: React.FC = () => {
           </h1>
         </div>
         <div className="w3l_search">
-          <form action="#" method="post">
+          <form>
             <input
               type="search"
-              name="Search"
+              name="query"
               placeholder="Search for a Product..."
+              onChange={(e) => {
+                updateState(e.target.value, setSearchTerm);
+              }}
               required
             />
-            <button
-              type="submit"
-              className="btn btn-default search"
-              aria-label="Left Align"
-            >
-              <FontAwesomeIcon
-                icon={faSearch}
-                aria-hidden="true"
-              ></FontAwesomeIcon>
-            </button>
+            <Link to={`search/${searchTerm}`}>
+              <button
+                type="submit"
+                className="btn btn-default search"
+                aria-label="Left Align"
+                // onClick={submitHandler}
+              >
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  aria-hidden="true"
+                ></FontAwesomeIcon>
+              </button>
+            </Link>
             <div className="clearfix"></div>
           </form>
         </div>

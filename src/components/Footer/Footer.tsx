@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,10 +8,7 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  faDribbble,
   faFacebook,
-  faVimeo,
-  faTwitter,
   faInstagram,
   faYoutube,
   faAppStore,
@@ -19,15 +16,38 @@ import {
 import { Container, Row, Col } from "react-bootstrap";
 import "./Footer.css";
 import image1 from "../../images/card.png";
+import { Root as CategoriesInterface } from "../Products/CategoriesInterface";
+import axios from "axios";
+
+const baseURL = "https://uat.ordering-dalle.ekbana.net/";
+const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
+const warehouseId = 1;
 
 function Footer(): JSX.Element {
+  const [categories, setCategories] = useState<CategoriesInterface>();
+  useEffect(() => {
+    const getCategory = async () => {
+      try {
+        const config = {
+          headers: { "Api-Key": apiKey, "Warehouse-Id": warehouseId },
+        };
+        const response = await axios.get(`${baseURL}/api/v4/category`, config);
+
+        if (response.status == 200) {
+          setCategories(response.data);
+        }
+      } catch (e) {
+        console.log("Something went wrong, ", e);
+      }
+    };
+    getCategory();
+  }, []);
   return (
     <div className="footer">
       <Container>
         <Row>
           <Col md={3} className="w3_footer_grid">
             <h3>Contact</h3>
-
             <ul className="address">
               <li>
                 <FontAwesomeIcon
@@ -72,13 +92,7 @@ function Footer(): JSX.Element {
                 />
                 <Link to="/contact"> Contact Us</Link>
               </li>
-              <li>
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  style={{ color: "#FE9A38" }}
-                />
-                <a href="short-codes.html"> Short Codes</a>
-              </li>
+
               <li>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -98,13 +112,20 @@ function Footer(): JSX.Element {
           <Col md={3} className="w3_footer_grid">
             <h3>Category</h3>
             <ul className="info">
-              <li>
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  style={{ color: "#FE9A38" }}
-                />
-                <a href="groceries.html"> Groceries</a>
-              </li>
+              {categories &&
+                categories.data.map((category) => {
+                  <li>
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      style={{ color: "#FE9A38" }}
+                    />
+                    <Link to={`products/${category.slug}`}>
+                      {" "}
+                      {category.title}
+                    </Link>
+                  </li>;
+                })}
+
               <li>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -157,14 +178,14 @@ function Footer(): JSX.Element {
                   icon={faArrowRight}
                   style={{ color: "#FE9A38" }}
                 />
-                <a href="login.html"> Login</a>
+                <Link to="/login"> Login</Link>
               </li>
               <li>
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   style={{ color: "#FE9A38" }}
                 />
-                <a href="registered.html"> Create Account</a>
+                <Link to="./createAccount"> Create Account</Link>
               </li>
             </ul>
           </Col>

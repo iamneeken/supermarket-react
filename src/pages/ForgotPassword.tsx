@@ -1,18 +1,15 @@
 import { faHomeAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../../context/authService";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const auth = "api/v4/auth";
-const loginURL = `${baseURL}/${auth}/login`;
+const forgotPasswordURL = `${baseURL}/${auth}/forgot-password`;
 
-function LoginForm(): JSX.Element {
+export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const authData = useContext(AuthContext);
 
   const updateState = (value: any, setState: Function) => {
     setState(value);
@@ -22,25 +19,20 @@ function LoginForm(): JSX.Element {
     e.preventDefault();
 
     try {
-      let res = await axios.post(loginURL, {
-        client_id: process.env.REACT_APP_client_id,
-        client_secret: process.env.REACT_APP_client_secret,
-        grant_type: "password",
-        username: email,
-        password: password,
+      let res = await axios.post(forgotPasswordURL, {
+        email: email,
       });
 
       console.log(res);
-      authData.setToken(res.data);
-    } catch (error: any) {
-      console.log(error.response);
+      alert("Your request has been made.");
+    } catch (error) {
+      console.log("Something went wrong", error);
     }
   };
-
   return (
     <div className="login">
       <div className="container">
-        <h2>Login Form</h2>
+        <h2>Forgot password?</h2>
 
         <div
           className="login-form-grids animated wow slideInUp"
@@ -49,26 +41,14 @@ function LoginForm(): JSX.Element {
           <form>
             <input
               type="email"
-              placeholder="Email Address"
-              required
+              placeholder="Enter email"
               onChange={(e) => {
                 updateState(e.target.value, setEmail);
               }}
-              value={email}
-            />
-            <input
-              type="password"
-              placeholder="Password"
               required
-              onChange={(e) => {
-                updateState(e.target.value, setPassword);
-              }}
-              value={password}
             />
-            <div className="forgot">
-              <Link to="/forgotpassword">Forgot Password?</Link>
-            </div>
-            <input type="submit" value="Login" onClick={submitHandler} />
+
+            <input type="submit" value="Submit" onClick={submitHandler} />
           </form>
         </div>
         <h4>For New People</h4>
@@ -85,6 +65,4 @@ function LoginForm(): JSX.Element {
       </div>
     </div>
   );
-}
-
-export default LoginForm;
+};

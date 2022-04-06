@@ -30,6 +30,14 @@ function CreateAccountForm(): JSX.Element {
         setError("First Name is empty");
         return;
       }
+      if (!lName.current?.value) {
+        setError("Last Name is empty");
+        return;
+      }
+      if (!email.current?.value) {
+        setError("Email is empty");
+        return;
+      }
 
       if (!agree.current?.checked) {
         return;
