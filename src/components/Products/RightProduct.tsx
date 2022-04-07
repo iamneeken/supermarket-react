@@ -11,8 +11,13 @@ import {
 // import Pagination from "../Pagination/Pagination";
 
 import ProductCard from "./ProductCard";
-import { Root as DisplayProductInterface } from "./DisplayProductInterface";
+import { Meta, Daum } from "./DisplayProductInterface";
 import ReactPaginate from "react-paginate";
+
+type DisplayProductInterface = {
+  meta: Meta;
+  data: Daum[];
+};
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
@@ -63,7 +68,7 @@ function RightProduct() {
         {products &&
           products.data.map((product) => (
             <ProductCard
-              key={product.id}
+              uniqueNumber={product.id}
               offer={product.unitPrice[0].hasOffer}
               image={product.images[0].imageName}
               title={product.title}

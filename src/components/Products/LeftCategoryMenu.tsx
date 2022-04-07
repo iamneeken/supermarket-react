@@ -8,15 +8,9 @@ import {
   Pagination as BPagination,
 } from "react-bootstrap";
 
-import Pagination from "../Pagination/Pagination";
-
-import ProductCard from "./ProductCard";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
-import { Root as DisplayProductInterface } from "./DisplayProductInterface";
 import { Root as CategoriesInterface } from "./CategoriesInterface";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";

@@ -1,8 +1,10 @@
 import React from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import img1 from "../../images/offer.png";
 
 type productProps = {
+  uniqueNumber: number;
   offer: boolean;
   image: string;
   title: string;
@@ -24,14 +26,15 @@ function ProductCard(props: productProps) {
               <figure>
                 <div className="snipcart-item block">
                   <div className="snipcart-thumb">
-                    <a href="single.html">
+                    {/* Change here */}
+                    <Link to={`/products/${props.uniqueNumber}`}>
                       <img
                         src={props.image}
                         alt=" "
                         className="img-fluid"
                         style={{ height: "160px", width: "160px" }}
                       />
-                    </a>
+                    </Link>
                     <p>{props.title}</p>
                     <h4>
                       Rs. {props.sellPrice} <span>Rs.{props.markedPrice}</span>

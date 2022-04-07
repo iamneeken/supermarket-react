@@ -1,7 +1,7 @@
-export interface Root {
-  meta: Meta;
-  data: Daum[];
-}
+// export interface Root {
+//   meta: Meta;
+//   data: Daum;
+// }
 
 export interface Meta {
   copyright: string;

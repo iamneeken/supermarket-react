@@ -7,8 +7,6 @@ import axios from "axios";
 import ProductCard from "../Products/ProductCard";
 import ReactPaginate from "react-paginate";
 
-import { Root as DisplayProductInterface } from "../Products/DisplayProductInterface";
-
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
 const warehouseId = 1;
@@ -77,6 +75,7 @@ function MomoComponent() {
                 {momos &&
                   momos.map((product: any) => (
                     <ProductCard
+                      uniqueNumber={product.id}
                       offer={product.unitPrice[0].hasOffer}
                       image={product.images[0].imageName}
                       title={product.title}

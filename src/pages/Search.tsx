@@ -1,14 +1,18 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Breadcrumb } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Filter from "../components/Products/Filter";
 import LeftCategoryMenu from "../components/Products/LeftCategoryMenu";
 import ProductCard from "../components/Products/ProductCard";
-import { Root as DisplayProductInterface } from "../components/Products/DisplayProductInterface";
-import ReactPaginate from "react-paginate";
+import { Meta, Daum } from "../components/Products/DisplayProductInterface";
+
 import BreadcrumbComponent from "../components/Breadcrumbs/BreadcrumbComponent";
 
+type DisplayProductInterface = {
+  meta: Meta;
+  data: Daum[];
+};
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
 const warehouseId = 1;
@@ -21,7 +25,7 @@ export const Search = () => {
   }
 
   const [product, setProduct] = useState<DisplayProductInterface>();
-  console.log(product);
+  // console.log(product);
 
   useEffect(() => {
     async function getProducts() {
@@ -65,7 +69,7 @@ export const Search = () => {
                 {product &&
                   product.data.map((product) => (
                     <ProductCard
-                      key={product.id}
+                      uniqueNumber={product.id}
                       offer={product.unitPrice[0].hasOffer}
                       image={product.images[0].imageName}
                       title={product.title}

@@ -23,6 +23,7 @@ import { Search } from "./pages/Search";
 import Logout from "./pages/Logout";
 import { AuthProvider } from "./context/authService";
 import { ForgotPassword } from "./pages/ForgotPassword";
+import { SingleProduct } from "./pages/SingleProduct";
 
 const App = (): JSX.Element => {
   return (
@@ -39,6 +40,7 @@ const App = (): JSX.Element => {
             <Route path="/products" element={<Products />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/search/:key" element={<Search />} />
+            <Route path="/products/:uniqueNumber" element={<SingleProduct />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/products/snacks" element={<Snacks />} />
             <Route path="/products/signatures" element={<Signatures />} />
