@@ -33,6 +33,7 @@ function RightProduct() {
         headers: {
           "Api-Key": apiKey,
           "Warehouse-Id": warehouseId,
+          perPage: 9,
         },
       };
 
