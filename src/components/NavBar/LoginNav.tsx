@@ -25,7 +25,9 @@ const LoginNav: React.FC = () => {
         <div className="agile-login">
           <ul>
             <li>
-              <Link to="/createAccount"> Create Account </Link>
+              {authData.loggedIn || (
+                <Link to="/createAccount"> Create Account </Link>
+              )}
             </li>
             <li>
               {authData.loggedIn ? (
@@ -40,7 +42,7 @@ const LoginNav: React.FC = () => {
           </ul>
         </div>
         <div className="product_list_header">
-          <form action="#" method="post" className="last">
+          <Link to="/cart" className="last">
             <input type="hidden" name="cmd" value="_cart" />
             <input type="hidden" name="display" value="1" />
             <Button
@@ -57,7 +59,7 @@ const LoginNav: React.FC = () => {
                 className="cartArrowDown"
               ></FontAwesomeIcon>
             </Button>
-          </form>
+          </Link>
         </div>
         <div className="clearfix"> </div>
       </div>

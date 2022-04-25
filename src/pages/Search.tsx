@@ -70,6 +70,7 @@ export const Search = () => {
                   product.data.map((product) => (
                     <ProductCard
                       uniqueNumber={product.id}
+                      priceId={product.unitPrice[0].id}
                       offer={product.unitPrice[0].hasOffer}
                       image={product.images[0].imageName}
                       title={product.title}

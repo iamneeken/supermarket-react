@@ -47,13 +47,13 @@ function LeftCategoryMenu() {
             categories.data.map((category) => {
               return category.subcategories ? (
                 <Link to={"/products/" + category.slug}>
-                  <div>
+                  <div key={category.id}>
                     <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
                     &nbsp;{category.title}
                   </div>
 
                   {category.subcategories.data.map((sub) => (
-                    <a href="#">
+                    <a href="#" key={category.id}>
                       &nbsp;{" "}
                       <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
                       &nbsp;{sub.title} <div></div>
@@ -62,7 +62,6 @@ function LeftCategoryMenu() {
                 </Link>
               ) : (
                 <Link
-                  key={category.id}
                   className="nav-link"
                   to={"/" + category.title.toLowerCase()}
                 >

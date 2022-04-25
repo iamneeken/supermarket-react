@@ -1,9 +1,10 @@
 import { faHomeAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/authService";
+import { useNavigate } from "react-router-dom";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const auth = "api/v4/auth";
@@ -13,10 +14,17 @@ function LoginForm(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const authData = useContext(AuthContext);
+  let navigate = useNavigate();
 
   const updateState = (value: any, setState: Function) => {
     setState(value);
   };
+
+  useEffect(() => {
+    if (authData.loggedIn) {
+      navigate("/");
+    }
+  }, [authData.loggedIn]);
 
   const submitHandler = async (e: any) => {
     e.preventDefault();

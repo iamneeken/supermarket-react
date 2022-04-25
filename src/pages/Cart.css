@@ -1,0 +1,14 @@
+table{
+    border: 2px solid green;
+}
+
+.billing{
+    width: 100%;
+ }
+ .cart-items{
+     display: flex;
+     justify-content: space-evenly;
+ }
+ /* .cart-item{
+    width: 50px;
+ } */

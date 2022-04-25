@@ -24,6 +24,7 @@ import Logout from "./pages/Logout";
 import { AuthProvider } from "./context/authService";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { SingleProduct } from "./pages/SingleProduct";
+import { Cart } from "./pages/Cart";
 
 const App = (): JSX.Element => {
   return (
@@ -49,6 +50,7 @@ const App = (): JSX.Element => {
             <Route path="/products/frozen-items" element={<FrozenItem />} />
             <Route path="/products/signature" element={<Signature />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/cart" element={<Cart />} />
             <Route
               path="/products/rice-and-noodles"
               element={<RiceAndNoodles />}

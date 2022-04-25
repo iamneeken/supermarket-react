@@ -72,6 +72,7 @@ function RightProduct() {
               offer={product.unitPrice[0].hasOffer}
               image={product.images[0].imageName}
               title={product.title}
+              priceId={product.unitPrice[0].id}
               sellPrice={product.unitPrice[0].sellingPrice}
               markedPrice={product.unitPrice[0].markedPrice}
             />

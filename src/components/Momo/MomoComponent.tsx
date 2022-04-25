@@ -77,6 +77,7 @@ function MomoComponent() {
                     <ProductCard
                       uniqueNumber={product.id}
                       offer={product.unitPrice[0].hasOffer}
+                      priceId={product.unitPrice[0].id}
                       image={product.images[0].imageName}
                       title={product.title}
                       sellPrice={product.unitPrice[0].sellingPrice}

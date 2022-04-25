@@ -55,6 +55,8 @@ function RightFilterProduct(props: Props) {
       {products &&
         products.map((product: any) => (
           <ProductCard
+            key={product.id}
+            priceId={product.unitPrice[0].id}
             uniqueNumber={product.id}
             offer={product.unitPrice[0].hasOffer}
             image={product.images[0].imageName}

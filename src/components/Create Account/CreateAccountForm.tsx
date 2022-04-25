@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AuthContext from "../../context/authService";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const auth = "api/v4/auth";
@@ -19,6 +20,15 @@ function CreateAccountForm(): JSX.Element {
   const mobileNumber = useRef<HTMLInputElement>(null);
 
   const [error, setError] = useState("");
+
+  const authData = useContext(AuthContext);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (authData.loggedIn) {
+      navigate("/");
+    }
+  }, [authData.loggedIn]);
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
@@ -52,6 +62,7 @@ function CreateAccountForm(): JSX.Element {
       });
 
       console.log(res);
+      navigate("/login");
     } catch (error: any) {
       console.log(error);
       console.log(error.response);

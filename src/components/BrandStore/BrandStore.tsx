@@ -54,7 +54,7 @@ function BrandsStore(): JSX.Element {
             {console.log(brandStore)}
             {brandStore &&
               brandStore.data.map((item) => (
-                <Carousel.Item interval={500}>
+                <Carousel.Item interval={500} key={item.id}>
                   <Col md={2} className="w3layouts-brand">
                     <div className="brands-w3l">
                       <p>

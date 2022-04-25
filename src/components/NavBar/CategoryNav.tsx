@@ -50,12 +50,9 @@ function CategoryNav(): JSX.Element {
               {categories &&
                 categories.data.map((category) => {
                   return category.subcategories ? (
-                    <NavDropdown title={category.title}>
-                      <ul className="multi-column-dropdown">
-                        <Link
-                          to={`products/${category.slug}`}
-                          key={category.id}
-                        >
+                    <NavDropdown title={category.title} key={category.id}>
+                      <ul className="multi-column-dropdown" key={category.id}>
+                        <Link to={`products/${category.slug}`}>
                           {category.title}
                         </Link>
                         {category.subcategories.data.map((sub) => (

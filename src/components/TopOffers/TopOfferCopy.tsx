@@ -3,17 +3,20 @@ import { Col, Row, Tabs, Tab, Container } from "react-bootstrap";
 import offer from "../../images/offer.png";
 import img1 from "../../images/6.png";
 import axios from "axios";
+import styles from "./Top.module.css";
+import ProductCard from "../Products/ProductCard";
 
 const baseURL = "https://uat.ordering-dalle.ekbana.net/";
 const apiKey = "q0eq7VRCxJBEW6n1EJkHy4qNLgaS86ztm8DYhGMqerV1eldXa6";
 const warehouseId = 1;
 
 function TopOffer(): JSX.Element {
-  const [offeredItems, setOfferedItems] = useState();
+  const [offeredItems, setOfferedItems] = useState<any>();
+  const [isCombo, setIsCombo] = useState(false);
 
-  // useEffect(() => {
-  //   getOfferedItems();
-  // }, []);
+  useEffect(() => {
+    getOfferedItems();
+  }, []);
 
   const getOfferedItems = async () => {
     try {
@@ -24,7 +27,7 @@ function TopOffer(): JSX.Element {
       let res = await axios.get(`${baseURL}/api/v4/product`, config);
 
       if (res.status == 200) {
-        // console.log(res.data);
+        console.log(res.data);
         setOfferedItems(res.data);
       }
     } catch (e) {
@@ -32,299 +35,80 @@ function TopOffer(): JSX.Element {
     }
   };
 
+  const getSuperSaverPack = () => {
+    const idx = [12, 19, 39, 31, 30, 28];
+
+    return idx.map((index) => {
+      if (!offeredItems) {
+        return;
+      }
+      let data = offeredItems.data[index];
+      return (
+        <ProductCard
+          uniqueNumber={data.id}
+          offer={data.unitPrice[0].hasOffer}
+          image={data.images[0].imageName}
+          title={data.title}
+          markedPrice={data.unitPrice[0].markedPrice}
+          sellPrice={data.unitPrice[0].sellingPrice}
+          priceId={data.unitPrice[0].id}
+        />
+      );
+    });
+  };
+
+  const comboPack = () => {
+    const idx = [1, 12, 19, 38, 14, 10];
+
+    return idx.map((index) => {
+      if (!offeredItems) {
+        return;
+      }
+      let data = offeredItems.data[index];
+      return (
+        <ProductCard
+          uniqueNumber={data.id}
+          offer={data.unitPrice[0].hasOffer}
+          image={data.images[0].imageName}
+          title={data.title}
+          markedPrice={data.unitPrice[0].markedPrice}
+          sellPrice={data.unitPrice[0].sellingPrice}
+          priceId={data.unitPrice[0].id}
+        />
+      );
+    });
+  };
   return (
     <div className="top-brands">
+      <h2>Top selling offers</h2>
       <Container>
-        <h2>Top selling offers</h2>
-        <div className="grid_3 grid_5 ">
-          <div className="agile_top_brands_grids">
-            <Tabs
-              defaultActiveKey="profile"
-              id="uncontrolled-tab-example"
-              className="mb-3"
+        <div className={styles.border}>
+          <div className={"d-flex w-100 "}>
+            <span
+              className={`btn ${
+                isCombo ? "btn-secondary" : "btn-warning"
+              } w-50 border rounded-0`}
+              onClick={() => {
+                setIsCombo(false);
+              }}
             >
-              <Tab eventKey="adOffer" title="Advertised Offer">
-                <div id="myTab" className="nav nav-tabs">
-                  <div className="agile-tp">
-                    <h5>Advertised this week</h5>
-                    <p className="w3l-ad">
-                      We've pulled together all our advertised offers into one
-                      place, so you won't miss out on a great deal.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-md-4 top_brand_left">
-                  <div className="hover14 column">
-                    <div className="agile_top_brand_left_grid">
-                      <div className="agile_top_brand_left_grid_pos">
-                        <img src={offer} alt=" " className="img-responsive" />
-                      </div>
-                      <div className="agile_top_brand_left_grid_pos">
-                        <img src={offer} alt=" " className="img-responsive" />
-                      </div>
-                      <div className="agile_top_brand_left_grid1">
-                        <figure>
-                          <div className="snipcart-item block">
-                            <div className="snipcart-thumb">
-                              <a href="products.html">
-                                <img
-                                  src={img1}
-                                  alt=" "
-                                  className="img-responsive"
-                                />
-                              </a>
-                              <p>Saffola-gold</p>
-                              <h4>
-                                $80.99 <span>$105.00</span>
-                              </h4>
-                            </div>
-                            <div className="snipcart-details top_brand_home_details">
-                              <form action="#" method="post">
-                                <fieldset>
-                                  <input
-                                    type="hidden"
-                                    name="cmd"
-                                    value="_cart"
-                                  />
-                                  <input type="hidden" name="add" value="1" />
-                                  <input
-                                    type="hidden"
-                                    name="business"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="item_name"
-                                    value="Pepsi soft drink"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="amount"
-                                    value="80.00"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="discount_amount"
-                                    value="1.00"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="currency_code"
-                                    value="USD"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="return"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="cancel_return"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="submit"
-                                    name="submit"
-                                    value="Add to cart"
-                                    className="button"
-                                  />
-                                </fieldset>
-                              </form>
-                            </div>
-                          </div>
-
-                          <div className="snipcart-item block">
-                            <div className="snipcart-thumb">
-                              <a href="products.html">
-                                <img
-                                  src={img1}
-                                  alt=" "
-                                  className="img-responsive"
-                                />
-                              </a>
-                              <p>Saffola-gold</p>
-                              <h4>
-                                $80.99 <span>$105.00</span>
-                              </h4>
-                            </div>
-                            <div className="snipcart-details top_brand_home_details">
-                              <form action="#" method="post">
-                                <fieldset>
-                                  <input
-                                    type="hidden"
-                                    name="cmd"
-                                    value="_cart"
-                                  />
-                                  <input type="hidden" name="add" value="1" />
-                                  <input
-                                    type="hidden"
-                                    name="business"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="item_name"
-                                    value="Pepsi soft drink"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="amount"
-                                    value="80.00"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="discount_amount"
-                                    value="1.00"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="currency_code"
-                                    value="USD"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="return"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="cancel_return"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="submit"
-                                    name="submit"
-                                    value="Add to cart"
-                                    className="button"
-                                  />
-                                </fieldset>
-                              </form>
-                            </div>
-                          </div>
-                        </figure>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Tab>
-              <Tab eventKey="todayOffer" title="Todays Offer">
-                <div className="agile-tp">
-                  <h5>This week</h5>
-                  <p className="w3l-ad">
-                    We've pulled together all our advertised offers into one
-                    place, so you won't miss out on a great deal.
-                  </p>
-                </div>
-
-                <div className="col-md-4 top_brand_left">
-                  <div className="hover14 column">
-                    <div className="agile_top_brand_left_grid">
-                      <div className="agile_top_brand_left_grid_pos">
-                        <img src={offer} alt=" " className="img-responsive" />
-                      </div>
-                      <div className="agile_top_brand_left_grid_pos">
-                        <img src={offer} alt=" " className="img-responsive" />
-                      </div>
-                      <div className="agile_top_brand_left_grid1">
-                        <figure>
-                          <div className="snipcart-item block">
-                            <div className="snipcart-thumb">
-                              <a href="products.html">
-                                <img
-                                  src={img1}
-                                  alt=" "
-                                  className="img-responsive"
-                                />
-                              </a>
-                              <p>Saffola-gold</p>
-                              <div className="stars">
-                                <i
-                                  className="fa fa-star blue-star"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  className="fa fa-star blue-star"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  className="fa fa-star blue-star"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  className="fa fa-star blue-star"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  className="fa fa-star gray-star"
-                                  aria-hidden="true"
-                                ></i>
-                              </div>
-                              <h4>
-                                $80.99 <span>$105.00</span>
-                              </h4>
-                            </div>
-                            <div className="snipcart-details top_brand_home_details">
-                              <form action="#" method="post">
-                                <fieldset>
-                                  <input
-                                    type="hidden"
-                                    name="cmd"
-                                    value="_cart"
-                                  />
-                                  <input type="hidden" name="add" value="1" />
-                                  <input
-                                    type="hidden"
-                                    name="business"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="item_name"
-                                    value="Pepsi soft drink"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="amount"
-                                    value="80.00"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="discount_amount"
-                                    value="1.00"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="currency_code"
-                                    value="USD"
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="return"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="hidden"
-                                    name="cancel_return"
-                                    value=" "
-                                  />
-                                  <input
-                                    type="submit"
-                                    name="submit"
-                                    value="Add to cart"
-                                    className="button"
-                                  />
-                                </fieldset>
-                              </form>
-                            </div>
-                          </div>
-                        </figure>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Tab>
-            </Tabs>
+              Super Saver Pack
+            </span>
+            <span
+              className={`btn ${
+                isCombo ? "btn-warning" : "btn-secondary"
+              } w-50 border rounded-0`}
+              onClick={() => {
+                setIsCombo(true);
+              }}
+            >
+              Combo Pack
+            </span>
+          </div>
+          <div className={styles.content}>
+            <Row className={"m-3"}>
+              {isCombo ? comboPack() : getSuperSaverPack()}
+            </Row>
           </div>
         </div>
       </Container>

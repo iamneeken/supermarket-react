@@ -1,0 +1,9 @@
+.border{
+    border: 1px solid green;
+}
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 500px;
+    background-color: white;
+}
